@@ -8,7 +8,8 @@
 import UIKit
 
 class QuestionsViewController: UIViewController {
-
+    
+    // MARK: - IB Outlets
     @IBOutlet var questionLabel: UILabel!
     @IBOutlet var questionProgressView: UIProgressView!
     
@@ -29,6 +30,7 @@ class QuestionsViewController: UIViewController {
         }
     }
     
+    // MARK: - Private Properties
     private let questions = Question.getQuestions()
     private var answersChosen: [Answer] = []
     private var questionIndex = 0
@@ -36,6 +38,7 @@ class QuestionsViewController: UIViewController {
         questions[questionIndex].answers
     }
     
+    // MARK: - Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
@@ -46,6 +49,7 @@ class QuestionsViewController: UIViewController {
         resultViewController.answersChosen = answersChosen
     }
     
+    // MARK: - IB Actions
     @IBAction func singleButtonAnswerPressed(_ sender: UIButton) {
         guard let buttonIndex = singleButtons.firstIndex(of: sender) else { return }
         let answer = currentAnswers[buttonIndex]

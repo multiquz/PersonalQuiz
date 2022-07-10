@@ -9,31 +9,29 @@ import UIKit
 
 class ResultViewController: UIViewController {
     
+    // MARK: - IB Outlets
     @IBOutlet var resultTitleLabel: UILabel!
     @IBOutlet var resultDefinitionLabel: UILabel!
     
+    // MARK: - Public Properties
     var answersChosen: [Answer]!
     
-
-    // 4. Избавиться от кнопки возврата назад на экране результатов
-    
+    // MARK: - Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // почему-то Xcode повелел удалить проверку as? Animal (it does nothing). Тут не очень понятен момент (
-        guard let animal = findResultingAnimal() else { return }
-        resultTitleLabel.text = "Вы - \(animal.rawValue)"
-        resultDefinitionLabel.text = animal.definition
+        showResult()
+        
+        navigationItem.hidesBackButton = true
     }
     
+    // MARK: - IB Actions
     @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
         navigationController?.dismiss(animated: true)
     }
     
-    deinit {
-        print("ResultViewController has been deallocated")
-    }
-    
+    // MARK: - Private Methods
     private func findResultingAnimal() -> Animal? {
         var animalsChosen: [Animal] = []
         
@@ -52,6 +50,12 @@ class ResultViewController: UIViewController {
         guard let resultingAnimal = animalsSorted.first?.key as? Animal else { return nil }
         
         return resultingAnimal
+    }
+    
+    private func showResult() {
+        guard let animal = findResultingAnimal() else { return }
         
+        resultTitleLabel.text = "Вы - \(animal.rawValue)"
+        resultDefinitionLabel.text = animal.definition
     }
 }
