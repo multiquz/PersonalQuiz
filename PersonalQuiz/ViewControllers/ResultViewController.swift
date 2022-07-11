@@ -47,7 +47,7 @@ class ResultViewController: UIViewController {
         
         let animalsSorted = animalsNumber.sorted { $0.1 > $1.1 }
         
-        guard let resultingAnimal = animalsSorted.first?.key as? Animal else { return nil }
+        let resultingAnimal = animalsSorted.first?.key
         
         return resultingAnimal
     }
